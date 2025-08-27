@@ -1,0 +1,17 @@
+{
+  "name": "@fainat/datatransformationengine",
+  "version": "1.0.0",
+  "description": "A simple data transformation engine.",
+  "main": "main.js",
+  "keywords": [
+    "data",
+    "transformation",
+    "engine"
+  ],
+  "author": "fainat",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fainat/DataTransformationEngine.git"
+  }
+}
