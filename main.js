@@ -121,4 +121,4 @@ const createDataEngine = () => {
     };
 };
 
-window.CREATE_DATA_ENGINE = createDataEngine;
+module.exports = createDataEngine;
