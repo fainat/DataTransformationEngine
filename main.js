@@ -1,4 +1,11 @@
-const createDataEngine = () => {
+const createDataEngine = (config = {}) => {
+
+    const engineConfig = {
+        ...config,
+        stream: config.stream || 'stream',
+        unique: config.unique || 'unique',
+    };
+
     const cache = new Map();
 
     const validators = {
@@ -71,7 +78,7 @@ const createDataEngine = () => {
                         return;
                     }
 
-                    const existingInfo = termData.info.get(info.stream);
+                    const existingInfo = termData.info.get(info[engineConfig.stream]);
                     if (existingInfo) {
                         existingInfo.detailed = transformers.mergeDetailed(existingInfo.detailed, info.detailed);
                         const aggregates = transformers.calculateAggregates(existingInfo.detailed);
@@ -83,7 +90,7 @@ const createDataEngine = () => {
                         };
                     } else {
                         const aggregates = transformers.calculateAggregates(info.detailed);
-                        termData.info.set(info.stream, {
+                        termData.info.set(info[engineConfig.stream], {
                             ...info,
                             uniqueBranches: aggregates.branches.size,
                             monthRange: {
@@ -120,5 +127,20 @@ const createDataEngine = () => {
         transformers
     };
 };
+
+/**
+ * Example usage:
+ * 
+ * const engine = createDataEngine({
+ *     stream: 'stream', // I might want to use a different existing property to identify the stream like: stream: 'unique'
+ *     unique: 'unique'
+ * });
+ * 
+ * const data = [
+ *     { term: 'term1', info: [{ stream: 'stream1', detailed: [{ month: '2025-01', branch: 'branch1', value: 100 }], unique: 'unique1' }] },
+ *     { term: 'term2', info: [{ stream: 'stream2', detailed: [{ month: '2025-01', branch: 'branch2', value: 200 }], unique: 'unique2' }] }
+ * ];
+ * 
+ */
 
 module.exports = createDataEngine;
