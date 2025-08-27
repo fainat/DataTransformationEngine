@@ -1,5 +1,5 @@
 {
-  "name": "@infab/datatransformationengine",
+  "name": "data-transformation-engine",
   "version": "1.0.0",
   "description": "A simple data transformation engine.",
   "main": "main.js",
