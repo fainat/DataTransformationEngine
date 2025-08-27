@@ -7,7 +7,7 @@ const createDataEngine = () => {
         isValidDetailed: (detailed) => Array.isArray(detailed) && detailed.length > 0,
         isValidMonth: (month) => /^\d{4}-\d{2}$/.test(month),
         isValidValue: (value) => !isNaN(value)
-    };–
+    };
 
     const transformers = {
         mergeDetailed: (existing, incoming) => {
