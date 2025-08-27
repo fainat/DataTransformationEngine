@@ -1,6 +1,6 @@
 {
   "name": "@infab/datatransformationengine",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "A simple data transformation engine.",
   "main": "main.js",
   "keywords": [
