@@ -78,38 +78,27 @@ const createDataEngine = (config = {}) => {
                         return;
                     }
 
-                    const aggregates = transformers.calculateAggregates(info.detailed);
-                    termData.info.set(info[engineConfig.stream], {
-                        ...info,
-                        value: aggregates.total,
-                        uniqueBranches: aggregates.branches.size,
-                        monthRange: {
+                    const existingInfo = termData.info.get(info[engineConfig.stream]);
+                    if (existingInfo) {
+                        existingInfo.detailed = transformers.mergeDetailed(existingInfo.detailed, info.detailed);
+                        const aggregates = transformers.calculateAggregates(existingInfo.detailed);
+                        existingInfo.value = aggregates.total;
+                        existingInfo.uniqueBranches = aggregates.branches.size;
+                        existingInfo.monthRange = {
                             start: Math.min(...aggregates.months),
                             end: Math.max(...aggregates.months)
-                        }
-                    });
-
-                    // const existingInfo = termData.info.get(info[engineConfig.stream]);
-                    // if (existingInfo) {
-                    //     existingInfo.detailed = transformers.mergeDetailed(existingInfo.detailed, info.detailed);
-                    //     const aggregates = transformers.calculateAggregates(existingInfo.detailed);
-                    //     existingInfo.value = aggregates.total;
-                    //     existingInfo.uniqueBranches = aggregates.branches.size;
-                    //     existingInfo.monthRange = {
-                    //         start: Math.min(...aggregates.months),
-                    //         end: Math.max(...aggregates.months)
-                    //     };
-                    // } else {
-                    //     const aggregates = transformers.calculateAggregates(info.detailed);
-                    //     termData.info.set(info[engineConfig.stream], {
-                    //         ...info,
-                    //         uniqueBranches: aggregates.branches.size,
-                    //         monthRange: {
-                    //             start: Math.min(...aggregates.months),
-                    //             end: Math.max(...aggregates.months)
-                    //         }
-                    //     });
-                    // }
+                        };
+                    } else {
+                        const aggregates = transformers.calculateAggregates(info.detailed);
+                        termData.info.set(info[engineConfig.stream], {
+                            ...info,
+                            uniqueBranches: aggregates.branches.size,
+                            monthRange: {
+                                start: Math.min(...aggregates.months),
+                                end: Math.max(...aggregates.months)
+                            }
+                        });
+                    }
                 });
             });
 
