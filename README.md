@@ -1,6 +1,23 @@
-# Data Engine Implementation Guide
+# Data Transformation Engine (Data Explorer Component)
 
-## Table of Contents
+[![npm version](https://img.shields.io/npm/v/data-transformation-engine.svg)](https://www.npmjs.com/package/data-transformation-engine)
+[![npm downloads](https://img.shields.io/npm/dm/data-transformation-engine.svg)](https://www.npmjs.com/package/data-transformation-engine)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Overview
+The Data Explorer is a high-performance Vue component designed to handle and visualize large hierarchical datasets with an emphasis on categorical and temporal data. It implements an efficient data transformation engine with robust error handling and optimized rendering.
+
+## 📦 Installation
+
+```bash
+npm install data-transformation-engine
+```
+
+### Requirements
+- Node.js >= 14.0.0
+- npm >= 7.0.0
+
+## Data Engine Implementation Guide • Table of Contents
 
 1. [Engine Architecture](#engine-architecture)
 2. [Implementation Details](#implementation-details)
