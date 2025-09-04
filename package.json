@@ -1,14 +1,26 @@
 {
   "name": "data-transformation-engine",
   "version": "1.0.9",
-  "description": "A simple data transformation engine.",
-  "main": "main.js",
+  "description": "A high-performance data transformation engine for processing large hierarchical datasets with emphasis on categorical and temporal data.",
+  "main": "index.js",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=7.0.0"
+  },
   "keywords": [
     "data",
     "transformation",
-    "engine"
+    "engine",
+    "cache",
+    "validation",
+    "performance",
+    "hierarchical-data",
+    "data-processing"
   ],
-  "author": "fainat",
+  "author": {
+    "name": "fainat",
+    "url": "https://github.com/fainat"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -17,5 +29,5 @@
   "bugs": {
     "url": "https://github.com/fainat/DataTransformationEngine/issues"
   },
-  "homepage": "https://github.com/fainat/DataTransformationEngine#readme"
+  "homepage": "https://github.com/fainat/DataTransformationEngine#readme",
 }
