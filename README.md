@@ -75,8 +75,6 @@ graph TD
 
 ## Implementation Details
 
-### 1. Engine Factory
-
 ```javascript
 const createDataEngine = () => {
   // Private cache storage
