@@ -1,16 +1,6 @@
-function fallbackUUID() {
-    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> (c / 4)).toString(16)
-    );
-}
-
-function generateUUID() {
-    if (crypto && typeof crypto.randomUUID === 'function') {
-    return crypto.randomUUID();
-    } else {
-    return fallbackUUID();
-    }
-}
+const { generateUUID } = require('./utils/uuid');
+const validators = require('./utils/validators');
+const transformers = require('./utils/transformers');
 
 const createDataEngine = (config = {}) => {
 
@@ -21,45 +11,6 @@ const createDataEngine = (config = {}) => {
     };
 
     const cache = new Map();
-
-    const validators = {
-        isValidTerm: (term) => typeof term === 'string' && term.length > 0,
-        isValidStream: (stream) => typeof stream === 'string' && stream.length > 0,
-        isValidDetailed: (detailed) => Array.isArray(detailed) && detailed.length > 0,
-        isValidMonth: (month) => /^\d{4}-\d{2}$/.test(month),
-        isValidValue: (value) => !isNaN(value)
-    };
-
-    const transformers = {
-        mergeDetailed: (existing, incoming) => {
-            const uniqueMap = new Map();
-
-            existing.forEach(item => {
-                const key = `${item.month}-${item.branch}`;
-                uniqueMap.set(key, item);
-            });
-
-            incoming.forEach(item => {
-                const key = `${item.month}-${item.branch}`;
-                if (!uniqueMap.has(key) || new Date(item.month) > new Date(uniqueMap.get(key).month)) {
-                    uniqueMap.set(key, item);
-                }
-            });
-
-            return Array.from(uniqueMap.values());
-        },
-
-        calculateAggregates: (detailed) => {
-            return detailed.reduce((acc, curr) => {
-                const value = Number(curr.value);
-                return {
-                    total: acc.total + value,
-                    branches: new Set([...acc.branches, curr.branch]),
-                    months: new Set([...acc.months, curr.month])
-                };
-            }, { total: 0, branches: new Set(), months: new Set() });
-        }
-    };
 
     const processRawData = (data) => {
         try {
